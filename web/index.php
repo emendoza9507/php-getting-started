@@ -2,6 +2,7 @@
 
 require('../vendor/autoload.php');
 $dbopts = parse_url(getenv('DATABASE_URL'));
+var_dump($dbopts);
 
 $app = new Silex\Application();
 $app['debug'] = true;
@@ -17,16 +18,16 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 ));
 
 $app->register(new Csanquer\Silex\PdoServiceProvider\Provider\PDOServiceProvider('pdo'),
-  array(
-    'pdo/server' => array(
-      'driver' => "pgsql",
-      'user' => $dbopts["user"],
-      'password' => $dbopts["pass"],
-      'host' => $dbopts["host"],
-      'port' => $dbopts["port"],
-      'dbname' => ltrim($dbopts["path"], '/')
-    )
-  )
+               array(
+                'pdo.server' => array(
+                   'driver'   => 'pgsql',
+                   'user' => $dbopts["user"],
+                   'password' => $dbopts["pass"],
+                   'host' => $dbopts["host"],
+                   'port' => $dbopts["port"],
+                   'dbname' => ltrim($dbopts["path"],'/')
+                   )
+               )
 );
 // Our web handlers
 
@@ -51,4 +52,4 @@ $app->get('/db/', function() use($app) {
 });
 
 
-$app->run();
+// $app->run();
