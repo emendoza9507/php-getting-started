@@ -52,4 +52,4 @@ $app->get('/db/', function() use($app) {
 });
 
 
-// $app->run();
+$app->run();
